@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -91,6 +92,36 @@ public class Leer {
             valorEntrada = sc.nextLine().toLowerCase();
         }
         return Boolean.parseBoolean(valorEntrada);
+    }
+    //COGER DATE SQL O INTRODUCIRLA AUTOMÁTICAMENTE
+    static public Date introduceDateSQLOAutomaticamente(){
+        String automaticoONo;
+        Date dateSql = null;
+        Scanner sc = new Scanner(System.in);
+        boolean error = true;
+        System.out.println("Introduce enter si quieres que se ponga la fecha actual automáticamente o introduce la fecha");
+        automaticoONo = sc.next();
+        if(automaticoONo.isEmpty()||automaticoONo.isBlank()){
+            dateSql= Date.valueOf(LocalDate.now());
+        }else {
+            while (error) {
+                try {
+                    dateSql = Date.valueOf(automaticoONo);
+                    String formatoEsperado = "yyyy-MM-dd";
+                    SimpleDateFormat sdf = new SimpleDateFormat(formatoEsperado);
+                    String fechaFormateada = sdf.format(dateSql);
+                    if (fechaFormateada.equals(dateSql.toString())) {
+                        System.out.println("La fecha tiene el formato correcto: " + fechaFormateada);
+                        error = false;
+                    } else {
+                        System.out.println("La fecha no tiene el formato correcto.");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Formato Incorrecto");
+                }
+            }
+        }
+        return dateSql;
     }
     //COGER DATE SQL
     static public Date introduceDateSQL(final String texto){
