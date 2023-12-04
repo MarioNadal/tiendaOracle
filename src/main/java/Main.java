@@ -12,7 +12,7 @@ import libs.Leer;
 
 import java.sql.Date;
 import java.util.List;
-
+//Main
 public class Main {
     static EntityManager em = EmfSingleton.getInstance().getEmf().createEntityManager();
     static EntityTransaction transaction = em.getTransaction();
